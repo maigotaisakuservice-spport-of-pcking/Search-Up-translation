@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GreenWord - 高機能P2Pワードエディタ</title>
+<link rel="stylesheet" href="index.css" />
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.5.0/docx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+<header>
+  <h1>GreenWord</h1>
+  <div id="langSwitch">
+    <button data-lang="ja" class="active">日本語</button>
+    <button data-lang="en">English</button>
+  </div>
+</header>
+
+<div id="toolbar">
+  <button title="太字" data-cmd="bold"><b>B</b></button>
+  <button title="斜体" data-cmd="italic"><i>I</i></button>
+  <button title="下線" data-cmd="underline"><u>U</u></button>
+  <button title="取り消し線" data-cmd="strikeThrough">S</button>
+  <select id="fontName" title="フォント">
+    <option value="Arial">Arial</option>
+    <option value="Times New Roman">Times New Roman</option>
+    <option value="Courier New">Courier New</option>
+    <option value="Georgia">Georgia</option>
+    <option value="Verdana">Verdana</option>
+  </select>
+  <select id="fontSize" title="フォントサイズ">
+    <option value="1">極小</option>
+    <option value="3" selected>標準</option>
+    <option value="5">大</option>
+    <option value="7">特大</option>
+  </select>
+  <button title="番号なしリスト" data-cmd="insertUnorderedList">・</button>
+  <button title="番号付きリスト" data-cmd="insertOrderedList">1.</button>
+  <button id="undoBtn" title="元に戻す">↶</button>
+  <button id="redoBtn" title="やり直す">↷</button>
+</div>
+
+<div id="editor" contenteditable="true" spellcheck="true" aria-label="文章編集エリア"></div>
+
+<section id="connectSection">
+  <h2>共有・接続</h2>
+  <div id="connectionControls">
+    <button id="startOfferBtn">接続開始（Offer生成）</button>
+    <button id="startAnswerBtn">接続受け入れ（Answer生成）</button>
+    <textarea id="sdpTextarea" placeholder="ここに相手のSDPを貼り付け"></textarea>
+    <button id="applySdpBtn">SDPを適用</button>
+  </div>
+  <div id="qrControls">
+    <button id="generateQrBtn">SDPをQRコード化</button>
+    <div id="qrCode"></div>
+    <input type="text" id="qrInput" placeholder="ここにQRコードから読み取ったSDPを貼付" />
+    <button id="applyQrBtn">QRから適用</button>
+  </div>
+  <div id="urlShare">
+    <button id="generateUrlBtn">接続用URLを生成</button>
+    <input type="text" id="shareUrl" readonly />
+  </div>
+</section>
+
+<section id="saveSection">
+  <h2>保存・書き出し</h2>
+  <button id="saveLocalBtn">自動保存（LocalStorageへ）</button>
+  <button id="loadLocalBtn">ローカル保存データを読み込み</button>
+  <button id="exportHtmlBtn">HTML書き出し</button>
+  <button id="exportPdfBtn">PDF書き出し</button>
+  <button id="exportDocxBtn">DOCX書き出し</button>
+</section>
+
+<section id="collabSection">
+  <h2>コラボレーション</h2>
+  <div id="userCursors"></div>
+  <div id="commentsSection">
+    <h3>コメント・付箋</h3>
+    <textarea id="commentInput" placeholder="コメントを入力"></textarea>
+    <button id="addCommentBtn">コメント追加</button>
+    <ul id="commentList"></ul>
+  </div>
+</section>
+
+<section id="aiSection">
+  <h2>AI補助</h2>
+  <button id="proofreadBtn">校正</button>
+  <button id="summarizeBtn">要約</button>
+  <button id="translateBtn">翻訳</button>
+  <textarea id="aiOutput" readonly placeholder="AIの結果がここに表示されます"></textarea>
+</section>
+
+<section id="voiceInputSection">
+  <h2>音声入力</h2>
+  <button id="startVoiceBtn">音声入力開始</button>
+  <button id="stopVoiceBtn" disabled>停止</button>
+  <textarea id="voiceText" placeholder="音声入力の文字がここに表示されます"></textarea>
+</section>
+
+<footer>
+  <small>© 2025 GreenWord by ChatGPT</small>
+</footer>
+
+<script src="index.js" defer></script>
+</body>
+</html>
